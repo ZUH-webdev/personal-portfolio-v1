@@ -61,7 +61,7 @@ const HeroSection = ({ onCtaScroll }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       id="hero"
-      className="relative min-h-[85vh] w-full flex flex-col justify-center overflow-hidden rounded-3xl border border-white/5 bg-[#020617]/50 px-6 py-12 shadow-[0_0_80px_rgba(15,23,42,0.9)] sm:px-12 lg:px-20 lg:py-24 backdrop-blur-3xl"
+      className="relative min-h-[85vh] w-full flex flex-col justify-center overflow-hidden rounded-3xl border border-white/5 bg-[#020617]/50 px-6 py-10 shadow-[0_0_80px_rgba(15,23,42,0.9)] sm:px-12 lg:px-20 lg:py-20 backdrop-blur-3xl"
     >
       {/* Film Grain Overlay - Premium Texture */}
       <div className="pointer-events-none absolute inset-0 z-[99] opacity-[0.03] mix-blend-overlay rounded-3xl" style={{
@@ -100,11 +100,13 @@ const HeroSection = ({ onCtaScroll }) => {
       <div className="grid gap-20 lg:grid-cols-[1.2fr_1fr] lg:items-center relative z-10">
         
         {/* Left Content */}
-        <div className="space-y-10">
+        <div className="space-y-10 relative">
+          {/* Indigo Ambient Glow Behind Text */}
+          <div className="absolute -inset-20 bg-indigo-600/10 blur-[120px] rounded-full -z-10" />
           
           {/* Status Badge - Refined & Elegant */}
           <motion.div
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 pl-2 pr-3 py-1.5 backdrop-blur-md w-max hover:border-white/20 transition-all"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 pl-2 pr-3 py-1.5 backdrop-blur-md w-max hover:border-white/20 transition-all font-geist"
             variants={textVariant}
             initial="hidden"
             animate="visible"
@@ -114,31 +116,27 @@ const HeroSection = ({ onCtaScroll }) => {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
             </div>
-            <span className="text-[9px] font-mono font-medium uppercase tracking-[0.25em] text-slate-400">
+            <span className="text-[9px] font-mono font-semibold uppercase tracking-widest text-slate-400">
               OPEN FOR PROJECTS
             </span>
           </motion.div>
 
-          {/* Typography Hierarchy */}
-          <div className="space-y-5">
+          {/* Premium Typography Hierarchy */}
+          <div className="space-y-6">
             <motion.h1
-              className="text-balance text-5xl font-black tracking-tighter sm:text-6xl md:text-7xl lg:text-[5rem] leading-[1.05]"
+              className="max-w-4xl font-geist font-black text-5xl tracking-tight-extreme sm:text-5xl md:text-6xl lg:text-[78px] leading-[1.1] lg:leading-[1.05]"
               variants={textVariant}
               initial="hidden"
               animate="visible"
               custom={1}
             >
-              <span className="bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
-                Zain: SaaS & Startup
-              </span>
-              <br className="hidden md:block"/>
-              <span className="bg-gradient-to-r from-slate-100 via-emerald-300/50 to-slate-200 bg-clip-text text-transparent">
-                Specialist
+              <span className="block bg-linear-to-b from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
+                SaaS & Business Startup Specialist
               </span>
             </motion.h1>
 
             <motion.p
-              className="max-w-xl text-pretty text-base font-light leading-relaxed text-slate-400"
+              className="max-w-xl text-pretty text-sm sm:text-base font-light leading-relaxed text-slate-400 tracking-wide"
               variants={textVariant}
               initial="hidden"
               animate="visible"
@@ -159,7 +157,7 @@ const HeroSection = ({ onCtaScroll }) => {
               <button
                 type="button"
                 onClick={() => onCtaScroll?.('projects')}
-                className="group relative inline-flex h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-br from-indigo-600 to-indigo-700 pl-8 pr-6 text-sm font-semibold text-white shadow-[0_20px_50px_rgba(79,70,229,0.35)] transition-all duration-300 hover:shadow-[0_30px_60px_rgba(79,70,229,0.5)] hover:pr-8 hover:from-indigo-500 hover:to-indigo-600 focus:outline-none active:scale-95"
+                className="group relative inline-flex h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-br from-indigo-600 to-indigo-700 pl-8 pr-6 text-sm font-semibold text-white shadow-[0_20px_50px_rgba(79,70,229,0.35)] transition-all duration-300 hover:shadow-[0_30px_60px_rgba(79,70,229,0.5)] hover:pr-8 hover:from-indigo-500 hover:to-indigo-600 focus:outline-none active:scale-95 font-geist tracking-tight"
               >
                 <span>View Projects</span>
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-all duration-300 group-hover:bg-white/30 group-hover:scale-110">
@@ -171,7 +169,7 @@ const HeroSection = ({ onCtaScroll }) => {
             <button
               type="button"
               onClick={() => onCtaScroll?.('contact')}
-              className="group relative inline-flex h-14 items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/5 backdrop-blur-md px-8 text-sm font-medium text-slate-300 transition-all duration-300 hover:border-white/40 hover:text-white hover:bg-white/10 focus:outline-none"
+              className="group relative inline-flex h-14 items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/5 backdrop-blur-md px-8 text-sm font-medium text-slate-300 transition-all duration-300 hover:border-white/40 hover:text-white hover:bg-white/10 focus:outline-none font-geist tracking-tight"
             >
               <span className="relative z-10 transition-transform group-hover:-translate-y-12">Let's Talk</span>
               <span className="absolute inset-0 z-10 flex items-center justify-center translate-y-12 transition-transform group-hover:translate-y-0 text-white">Let's Talk</span>
@@ -188,10 +186,10 @@ const HeroSection = ({ onCtaScroll }) => {
           animate="visible"
           custom={4}
         >
-          <div className="relative group w-full max-w-[450px] h-[500px]">
+          <div className="relative group w-full lg:max-w-[450px] h-[400px] md:h-[500px]">
             {/* The Stage Spotlight Glow */}
             <motion.div 
-              className="absolute -inset-20 bg-gradient-to-tr from-indigo-600/20 to-purple-600/20 blur-[140px] rounded-full animate-pulse" 
+              className="absolute -inset-10 md:-inset-20 bg-gradient-to-tr from-indigo-600/20 to-purple-600/20 blur-[100px] md:blur-[140px] rounded-full animate-pulse" 
               style={{ animationDuration: '6s' }}
             />
             
@@ -203,7 +201,7 @@ const HeroSection = ({ onCtaScroll }) => {
               <img 
                 src="/myPP.png" 
                 alt="Zain" 
-                className="relative z-10 w-full h-full object-cover grayscale-30 hover:grayscale-0 transition-all duration-700 ease-out"
+                className="relative z-10 w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-700 ease-out"
               />
               
               {/* Radial Gradient Mask - Unbox Effect */}
@@ -224,9 +222,9 @@ const HeroSection = ({ onCtaScroll }) => {
               style={{ y: useTransform(parallaxY, v => v * 0.3) }}
               className="absolute -left-6 bottom-40 z-40 hidden md:block"
             >
-              <div className="rounded-2xl border border-white/15 bg-white/8 backdrop-blur-xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:border-white/25 hover:bg-white/12 transition-all">
-                <p className="text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Current Status</p>
-                <p className="text-xs font-semibold text-white">Solving SaaS Complexity</p>
+              <div className="rounded-2xl border border-white/15 bg-white/8 backdrop-blur-xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:border-white/25 hover:bg-white/12 transition-all font-geist">
+                <p className="text-[9px] font-mono font-semibold uppercase tracking-widest text-slate-500 mb-1">Current Status</p>
+                <p className="text-xs font-bold text-white tracking-tight">Solving SaaS Complexity</p>
               </div>
             </motion.div>
 
@@ -237,10 +235,10 @@ const HeroSection = ({ onCtaScroll }) => {
               animate="animate"
               whileHover="hover"
               style={{ y: useTransform(parallaxY, v => v * 0.4) }}
-              className="absolute -right-8 bottom-32 lg:bottom-20 z-30 w-64 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_80px_rgba(79,70,229,0.2)]"
+              className="absolute -right-4 -bottom-10 md:-right-8 md:bottom-20 z-30 w-56 md:w-64 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-2xl p-4 md:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_80px_rgba(79,70,229,0.2)] font-geist"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-white">Tech Stack</h3>
+                <h3 className="text-sm font-bold text-white tracking-tight">Tech Stack</h3>
                 <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               </div>
               

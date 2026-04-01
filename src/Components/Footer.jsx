@@ -1,62 +1,191 @@
-import React from "react";
+import { motion, AnimatePresence } from 'framer-motion'
+import { Github, Linkedin, Twitter, ArrowUp, Instagram } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import Magnetic from './Magnetic'
 
 const Footer = () => {
+  const [localTime, setLocalTime] = useState('')
+  const [showScrollTop, setShowScrollTop] = useState(false)
+  const footerRef = useRef(null)
+
+  // Update local time
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date()
+      // GMT+5 for Pakistan (Asia/Karachi)
+      const gmt5Time = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Karachi' }))
+      setLocalTime(gmt5Time.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: true 
+      }))
+    }
+    updateTime()
+    const interval = setInterval(updateTime, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Show/hide back to top based on footer visibility
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowScrollTop(entry.isIntersecting)
+      },
+      { threshold: 0.1 }
+    )
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current)
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current)
+      }
+    }
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const socialLinks = [
+    { name: 'GitHub', url: 'https://github.com', icon: Github },
+    { name: 'LinkedIn', url: 'https://linkedin.com', icon: Linkedin },
+    { name: 'X', url: 'https://twitter.com', icon: Twitter },
+    { name: 'Instagram', url: 'https://instagram.com', icon: Instagram },
+  ]
+
   return (
-    <footer className="px-8 py-12 border-t border-gray-200">
-      {/* Navigation Links */}
-      <nav className="flex items-center gap-8 mb-16">
-        <a href="/" className="text-purple-600 font-medium hover:text-purple-700">Home</a>
-        <a href="/projects" className="text-gray-700 font-medium hover:text-purple-600">Projects</a>
-        <a href="/about" className="text-gray-700 font-medium hover:text-purple-600">About</a>
-        <a href="/contact" className="text-gray-700 font-medium hover:text-purple-600">Contact</a>
+    <footer
+      ref={footerRef}
+      className="relative bg-[#020617] py-16 overflow-hidden selection:bg-indigo-500/30"
+    >
+      {/* Background Layer */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Subtle Watermark - Anchored low */}
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 select-none">
+          <h2 className="text-[35vw] font-black text-white/[0.02] leading-none tracking-tighter font-syne uppercase">
+            ZAIN
+          </h2>
+        </div>
         
-        {/* Social Icons */}
-        <div className="ml-auto flex items-center gap-4">
-          <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-purple-600">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-          </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-purple-600">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-          </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-purple-600">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-purple-600">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm5.696 14.943c-4.103 4.103-11.433 2.794-11.433 2.794S4.954 10.41 9.057 6.307c2.281-2.281 6.061-2.187 8.45.189s2.471 6.168.189 8.447zm-4.319-7.464c-1.319-1.319-3.516-1.319-4.835 0-1.319 1.319-1.319 3.516 0 4.835 1.319 1.319 3.516 1.319 4.835 0 1.319-1.319 1.319-3.516 0-4.835z"/>
-            </svg>
-          </a>
-        </div>
-      </nav>
+        {/* Grain Overlay */}
+        <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
 
-      {/* CTA Section */}
-      <div className="mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">
-          Interested in working together<span className="text-purple-600">?</span>
-        </h2>
-        <div className="flex items-center gap-4">
-          <button className="px-8 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors">
-            Get In Touch
-          </button>
-          <button className="px-8 py-3 border-2 border-gray-900 text-gray-900 font-medium rounded-lg hover:bg-gray-900 hover:text-white transition-colors">
-            Browse Projects
-          </button>
+        {/* Minimal Glow */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-full bg-[radial-gradient(circle_at_50%_100%,rgba(79,70,229,0.06),transparent_80%)]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-8 lg:px-16 container relative z-10">
+        {/* Top Boundary Line */}
+        <div className="absolute top-0 left-8 right-8 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
+
+        <div className="flex flex-col gap-12 sm:gap-16">
+          {/* Main Horizontal Vision & Status Row */}
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-center gap-10">
+            {/* Vision Text - High Impact / Minimal Footprint */}
+            <div className="max-w-2xl text-center md:text-left">
+              <p className="text-slate-300 text-xl md:text-2xl lg:text-3xl font-outfit leading-[1.2] font-light">
+                Engineering <span className="text-white font-medium italic">digital symphonies</span> where engineering precision meets aesthetic obsession.
+              </p>
+            </div>
+
+            {/* Availability Pill - Integrated */}
+            <div className="inline-flex items-center gap-4 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shrink-0">
+              <div className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.7)]"></span>
+              </div>
+              <span className="text-[11px] font-syne uppercase tracking-[0.3em] text-slate-100 font-bold whitespace-nowrap">
+                Ready: Q2/Q3 2026
+              </span>
+            </div>
+          </div>
+
+          {/* Bottom Meta & Social Bar */}
+          <div className="pt-10 space-y-10 border-t border-white/5">
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-10">
+              {/* Technical Meta Hub */}
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8 sm:gap-12">
+                <div className="flex flex-col items-center sm:items-start gap-2">
+                  <span className="text-[10px] font-serif uppercase tracking-[0.3em] text-slate-500">Local Time (GMT+5)</span>
+                  <span className="text-[11px] font-geist text-slate-200 font-bold uppercase tracking-tight">{localTime}</span>
+                </div>
+                <div className="hidden sm:block h-8 w-px bg-white/10" />
+                <div className="flex flex-col items-center sm:items-start gap-2">
+                  <span className="text-[10px] font-serif uppercase tracking-[0.3em] text-slate-500">System Status</span>
+                  <span className="inline-flex items-center gap-2 text-[10px] font-geist text-emerald-400 font-bold uppercase tracking-widest">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                    Optimal
+                  </span>
+                </div>
+                <div className="hidden sm:block h-8 w-px bg-white/10" />
+                <div className="flex flex-col items-center sm:items-start gap-2 text-center sm:text-left">
+                  <span className="text-[10px] font-serif uppercase tracking-[0.3em] text-slate-500">Origin</span>
+                  <span className="text-[11px] font-serif text-slate-200 font-bold uppercase tracking-tight">Pakistan // Global</span>
+                </div>
+              </div>
+
+              {/* Social Index & Copyright */}
+              <div className="flex flex-col items-center lg:items-end gap-6">
+                {/* Minimal Icons */}
+                <div className="flex items-center gap-6">
+                  {socialLinks.map((social) => {
+                    const Icon = social.icon
+                    return (
+                      <a
+                        key={social.name}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-400 hover:text-white bg-white/10 p-2 rounded-full transition-all duration-500 hover:scale-110"
+                        title={social.name}
+                      >
+                        <Icon size={20} />
+                      </a>
+                    )
+                  })}
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-serif uppercase tracking-[0.4em] text-slate-500 font-extrabold">
+                    Made with obsession
+                  </span>
+                  <span className="h-1 w-1 rounded-full bg-indigo-500" />
+                  <span className="text-[10px] font-serif uppercase tracking-[0.4em] text-slate-500 font-bold">
+                    © 2026
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="text-right text-gray-600 text-sm">
-        <p>©2023 All Rights Reserved.</p>
-        <p>Made with <span className="text-purple-600">💜</span> by Zain Ul Hassan</p>
-      </div>
+      {/* Rise to Top - Minimized Contextual Component */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            className="fixed bottom-10 right-10 z-50 p-2"
+          >
+            <Magnetic>
+              <button
+                onClick={scrollToTop}
+                className="group relative flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-[#020617]/50 backdrop-blur-2xl transition-all duration-700 hover:border-white"
+              >
+                <ArrowUp size={24} className="text-slate-500 group-hover:text-white transition-all duration-500 transform group-hover:-translate-y-1.5" />
+                <span className="absolute inset-0 bg-white scale-0 group-hover:scale-[0.1] transition-transform duration-700 rounded-full" />
+              </button>
+            </Magnetic>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

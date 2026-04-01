@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { Moon, SunMedium, Menu, X } from 'lucide-react'
+import Magnetic from './Magnetic'
 import HeroSection from '../sections/HeroSection'
 import AboutSection from '../sections/AboutSection'
 import ServicesSection from '../sections/ServicesSection'
@@ -10,6 +11,7 @@ import ExperienceSection from '../sections/ExperienceSection'
 import TestimonialsSection from '../sections/TestimonialsSection'
 import ContactSection from '../sections/ContactSection'
 import Header from './Header'
+import Footer from './Footer'
 import profile from '../../public/profilePic.jpeg'
 
 const navItems = [
@@ -137,94 +139,164 @@ const Layout = () => {
           )}
         </AnimatePresence>
 
-         {/* Contact Modal */}
-         <AnimatePresence>
-           {showModal && (
-             <motion.div
-               className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               exit={{ opacity: 0 }}
-             >
-               <motion.div
-                 className="relative w-full max-w-md rounded-xl border border-white/10 bg-slate-900/80 p-8 shadow-2xl backdrop-blur-xl"
-                 initial={{ scale: 0.92, opacity: 0 }}
-                 animate={{ scale: 1, opacity: 1 }}
-                 exit={{ scale: 0.92, opacity: 0 }}
-                 transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-               >
-                 <button
-                   className="absolute right-4 top-4 rounded-full bg-slate-800/60 p-1 text-slate-300 hover:bg-slate-700 hover:text-white focus:outline-none"
-                   onClick={() => setShowModal(false)}
-                   aria-label="Close modal"
-                 >
-                   <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M18 6 6 18M6 6l12 12"/></svg>
-                 </button>
-                 <h2 className="mb-2 text-xl font-bold text-white">Start a Project</h2>
-                 <p className="mb-6 text-sm text-slate-300">Let’s discuss your requirements and how I can help.</p>
-                 <form onSubmit={handleModalSubmit} className="space-y-4">
-                   <div>
-                     <label htmlFor="name" className="block text-xs font-medium text-slate-300 mb-1">Name</label>
-                     <input
-                       id="name"
-                       name="name"
-                       type="text"
-                       required
-                       className="w-full rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-sm text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
-                       placeholder="Your name"
-                     />
-                   </div>
-                   <div>
-                     <label htmlFor="email" className="block text-xs font-medium text-slate-300 mb-1">Email</label>
-                     <input
-                       id="email"
-                       name="email"
-                       type="email"
-                       required
-                       className="w-full rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-sm text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
-                       placeholder="you@email.com"
-                     />
-                   </div>
-                   <div>
-                     <label htmlFor="message" className="block text-xs font-medium text-slate-300 mb-1">Project Specifications</label>
-                     <textarea
-                       id="message"
-                       name="message"
-                       required
-                       rows={4}
-                       className="w-full rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-sm text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
-                       placeholder="Describe your project..."
-                     />
-                   </div>
-                   <div className="pt-2">
-                     <button
-                       type="submit"
-                       disabled={modalStatus === 'sending'}
-                       className="w-full rounded-lg bg-cyan-500 px-4 py-2 font-semibold text-white shadow transition-transform hover:scale-105 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 disabled:opacity-70"
-                     >
-                       {modalStatus === 'sending' ? 'Sending…' : 'Send message'}
-                     </button>
-                   </div>
-                   <div className="h-6 text-center text-xs">
-                     <AnimatePresence>
-                       {modalStatus === 'success' && (
-                         <motion.span
-                           initial={{ opacity: 0, y: 4 }}
-                           animate={{ opacity: 1, y: 0 }}
-                           exit={{ opacity: 0, y: -4 }}
-                           transition={{ duration: 0.2 }}
-                           className="text-emerald-300"
-                         >
-                           Message sent! I’ll be in touch shortly.
-                         </motion.span>
-                       )}
-                     </AnimatePresence>
-                   </div>
-                 </form>
-               </motion.div>
-             </motion.div>
-           )}
-         </AnimatePresence>
+          {/* Contact Modal */}
+          <AnimatePresence>
+            {showModal && (
+              <motion.div
+                className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                {/* Backdrop with Radial Glow Context */}
+                <div 
+                  className="absolute inset-0 bg-black/60 backdrop-blur-md" 
+                  onClick={() => setShowModal(false)}
+                />
+                <div 
+                  className="absolute inset-0 pointer-events-none" 
+                  style={{ background: 'radial-gradient(circle at center, rgba(79, 70, 229, 0.15), transparent 70%)' }}
+                />
+
+                <motion.div
+                  className="relative w-full max-w-xl rounded-2xl border border-white/10 bg-[#020617]/95 p-5 sm:p-8 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] backdrop-blur-[40px] overflow-hidden"
+                  initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+                >
+                  {/* Subtle Gradient Border Overlay */}
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl border border-white/5 bg-linear-to-br from-white/10 via-transparent to-transparent" />
+
+                  {/* Close button - High priority z-index and expanded touch area */}
+                  <button
+                    className="absolute right-4 top-4 z-[100] flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-400 transition-all hover:bg-white/10 hover:text-white sm:h-9 sm:w-9"
+                    onClick={() => setShowModal(false)}
+                    aria-label="Close modal"
+                  >
+                    <X size={20} strokeWidth={1.5} className="sm:w-4 sm:h-4" />
+                  </button>
+
+                  {/* Header */}
+                  <div className="relative z-10 mb-6 sm:mb-8">
+                    <h2 className="mb-0.5 font-geist font-black text-2xl tracking-tighter text-white sm:text-3xl">
+                      Start a Project
+                    </h2>
+                    <p className="font-outfit text-xs text-slate-400 sm:text-sm">
+                      Tell me about your vision.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleModalSubmit} className="relative z-10 space-y-4 sm:space-y-6">
+                    {/* Name Field */}
+                    <div className="group relative">
+                      <label htmlFor="name" className="mb-1 block font-geist-mono text-[8px] font-bold uppercase tracking-[0.2em] text-slate-500 sm:text-[9px]">
+                        NAME
+                      </label>
+                      <div className="relative">
+                        <input
+                          id="name"
+                          name="name"
+                          type="text"
+                          required
+                          placeholder="Your identity"
+                          className="peer w-full bg-transparent py-1.5 font-geist text-sm text-white placeholder-slate-800 outline-none transition-all sm:py-2 sm:text-base"
+                        />
+                        <div className="absolute bottom-0 left-0 h-px w-full bg-white/10" />
+                        <motion.div 
+                          className="absolute bottom-0 left-0 h-[2.5px] w-full bg-indigo-500 origin-center scale-x-0 transition-transform duration-500 peer-focus:scale-x-100"
+                        />
+                        <div className="pointer-events-none absolute -inset-x-4 -inset-y-2 rounded-xl bg-indigo-500/0 blur-2xl transition-all duration-500 peer-focus:bg-indigo-500/5" />
+                      </div>
+                    </div>
+
+                    {/* Email Field */}
+                    <div className="group relative">
+                      <label htmlFor="email" className="mb-1 block font-geist-mono text-[8px] font-bold uppercase tracking-[0.2em] text-slate-500 sm:text-[9px]">
+                        EMAIL
+                      </label>
+                      <div className="relative">
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          required
+                          placeholder="hello@world.com"
+                          className="peer w-full bg-transparent py-1.5 font-geist text-sm text-white placeholder-slate-800 outline-none transition-all sm:py-2 sm:text-base"
+                        />
+                        <div className="absolute bottom-0 left-0 h-px w-full bg-white/10" />
+                        <motion.div 
+                          className="absolute bottom-0 left-0 h-[2.5px] w-full bg-indigo-500 origin-center scale-x-0 transition-transform duration-500 peer-focus:scale-x-100"
+                        />
+                        <div className="pointer-events-none absolute -inset-x-4 -inset-y-2 rounded-xl bg-indigo-500/0 blur-2xl transition-all duration-500 peer-focus:bg-indigo-500/5" />
+                      </div>
+                    </div>
+
+                    {/* Message Field */}
+                    <div className="group relative">
+                      <label htmlFor="message" className="mb-1 block font-geist-mono text-[8px] font-bold uppercase tracking-[0.2em] text-slate-500 sm:text-[9px]">
+                        PROJECT SPECS
+                      </label>
+                      <div className="relative">
+                        <textarea
+                          id="message"
+                          name="message"
+                          required
+                          rows={2}
+                          placeholder="Requirements..."
+                          className="peer w-full resize-none bg-transparent py-1.5 font-geist text-sm text-white placeholder-slate-800 outline-none transition-all sm:py-2 sm:text-base"
+                        />
+                        <div className="absolute bottom-0 left-0 h-px w-full bg-white/10" />
+                        <motion.div 
+                          className="absolute bottom-0 left-0 h-[2.5px] w-full bg-indigo-500 origin-center scale-x-0 transition-transform duration-500 peer-focus:scale-x-100"
+                        />
+                        <div className="pointer-events-none absolute -inset-x-4 -inset-y-2 rounded-xl bg-indigo-500/0 blur-2xl transition-all duration-500 peer-focus:bg-indigo-500/5" />
+                      </div>
+                    </div>
+
+                    {/* Action Section */}
+                    <div className="pt-2 sm:pt-4">
+                      <div className="flex flex-col items-center gap-3">
+                        <Magnetic pullBase={0.3} className="w-full">
+                          <button
+                            type="submit"
+                            disabled={modalStatus === 'sending'}
+                            className="group relative flex h-12 w-full items-center justify-center overflow-hidden rounded-lg bg-white text-[10px] font-black uppercase tracking-widest text-black shadow-[0_12px_32px_rgba(255,255,255,0.1)] transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 sm:h-14 sm:text-xs"
+                          >
+                            <span className="relative z-10">
+                              {modalStatus === 'sending' ? 'Sending...' : 'Send Inquiry'}
+                            </span>
+                            <div className="absolute inset-0 -z-10 translate-y-full bg-slate-100 transition-transform duration-300 group-hover:translate-y-0" />
+                          </button>
+                        </Magnetic>
+
+                        {/* Reliability Micro-label */}
+                        <div className="flex flex-col items-center gap-1 opacity-40">
+                          <p className="font-geist-mono text-[7px] uppercase tracking-[0.4em] sm:text-[8px]">
+                            Immediate Response: &lt; 24 Hours
+                          </p>
+                          <div className="h-4">
+                            <AnimatePresence>
+                              {modalStatus === 'success' && (
+                                <motion.span
+                                  initial={{ opacity: 0, y: 4 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -4 }}
+                                  className="font-geist text-[9px] font-bold text-emerald-400 sm:text-[10px]"
+                                >
+                                  Inquiry Received.
+                                </motion.span>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
          {/* Main content */}
         <motion.main
@@ -243,34 +315,7 @@ const Layout = () => {
         </motion.main>
 
         {/* Footer */}
-        <footer className="border-t border-slate-800/70 py-6 text-sm text-slate-400">
-          <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
-            <p className="text-center sm:text-left">
-              © {new Date().getFullYear()} Zain Ul Hassan. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://github.com/ZUH-webdev"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full px-3 py-1 text-xs font-medium text-slate-300 transition hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/zain-ul-hassan-dev"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full px-3 py-1 text-xs font-medium text-slate-300 transition hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-              >
-                LinkedIn
-              </a>
-              <span className="rounded-full bg-slate-900/90 px-3 py-1 text-[11px] font-medium text-slate-300 shadow-sm shadow-slate-900/70">
-                Freelance & Full-time Available
-              </span>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   )

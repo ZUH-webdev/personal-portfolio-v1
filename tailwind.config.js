@@ -3,6 +3,18 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        'geist': ['Geist', 'sans-serif'],
+        'inter': ['Inter', 'sans-serif'],
+        'mono': ['Geist Mono', 'monospace'],
+      },
+      fontSize: {
+        'display': ['6rem', { lineHeight: '1.1', letterSpacing: '-0.04em' }],
+      },
+      letterSpacing: {
+        'tight-extreme': '-0.04em',
+        'tight-max': '-0.03em',
+      },
       colors: {
         navy: {
           950: '#0B0F19',
@@ -11,6 +23,7 @@ export default {
       boxShadow: {
         'glow-indigo': '0 0 32px rgba(79, 70, 229, 0.65)',
         'glow-cyan': '0 0 32px rgba(34, 211, 238, 0.65)',
+        'text-glow': '0 0 20px rgba(255, 255, 255, 0.15)',
       },
       borderRadius: {
         '2.5xl': '1.25rem',
@@ -19,6 +32,7 @@ export default {
         'pulse-slow': 'pulse 4s ease-in-out infinite',
         'float': 'float 6s ease-in-out infinite',
         'glow': 'glow 3s ease-in-out infinite',
+        'pulse-subtle': 'pulse 3s ease-in-out infinite',
       },
       keyframes: {
         float: {
@@ -33,4 +47,5 @@ export default {
     },
   },
 }
+
 

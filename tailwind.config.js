@@ -15,6 +15,21 @@ export default {
       borderRadius: {
         '2.5xl': '1.25rem',
       },
+      animation: {
+        'pulse-slow': 'pulse 4s ease-in-out infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'glow': 'glow 3s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        glow: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(79, 70, 229, 0.5)' },
+          '50%': { boxShadow: '0 0 40px rgba(79, 70, 229, 0.8)' },
+        },
+      },
     },
   },
 }

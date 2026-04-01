@@ -9,9 +9,8 @@ import ProjectsSection from '../sections/ProjectsSection'
 import ExperienceSection from '../sections/ExperienceSection'
 import TestimonialsSection from '../sections/TestimonialsSection'
 import ContactSection from '../sections/ContactSection'
-// ...existing code...
+import Header from './Header'
 import profile from '../../public/profilePic.jpeg'
-
 
 const navItems = [
   { id: 'hero', label: 'Home' },
@@ -91,97 +90,52 @@ const Layout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 transition-colors duration-300">
+    <div className="relative min-h-screen bg-[#020617] text-slate-100 selection:bg-indigo-500/30 transition-colors duration-300">
+      {/* Noise texture overlay for 'Elite' feel */}
+      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
       {/* Background gradient accents */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
       >
-        <div className="absolute -left-40 top-0 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
-        <div className="absolute right-0 top-40 h-80 w-80 rounded-full bg-violet-500/20 blur-3xl" />
-        <div className="absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
+        <div className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px]" />
+        <div className="absolute right-0 top-40 h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[100px]" />
+        <div className="absolute -bottom-32 left-1/3 h-[600px] w-[600px] rounded-full bg-purple-500/10 blur-[120px]" />
       </div>
+
+      <Header 
+        handleNavClick={handleNavClick}
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+        setShowModal={setShowModal}
+        profile={profile}
+      />
 
       {/* App shell */}
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
-        {/* Top navigation */}
-        <header className="sticky top-0 z-40 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur">
-          <div className="flex items-center justify-between py-4">
-            <button
-              type="button"
-              onClick={() => handleNavClick('hero')}
-              className="flex items-center gap-2 text-lg font-semibold text-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+        
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed inset-x-4 top-24 z-50 rounded-2xl border border-white/10 bg-slate-900/90 p-4 backdrop-blur-2xl md:hidden"
             >
-              <img
-                src={profile}
-                alt="Zain Ul Hassan"
-                className="h-10 w-10 rounded-full object-cover border-2 border-indigo-500"
-              />
-              <span className="hidden sm:inline">Zain · Saas & Startup Specialist</span>
-            </button>
-
-            <nav className="hidden items-center gap-6 text-sm font-medium text-slate-300 md:flex">
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className="relative rounded-full px-2 py-1 transition-colors hover:text-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                  className="block w-full rounded-lg py-4 text-center text-lg font-medium hover:bg-white/5"
                 >
                   {item.label}
                 </button>
               ))}
-            </nav>
-
-            <div className="flex items-center gap-2">
-              {/* CTA Button */}
-              <button
-                type="button"
-                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/40 transition hover:shadow-xl hover:shadow-violet-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
-                onClick={() => setShowModal(true)}
-              >
-                Start a Project
-              </button>
-              {/* Mobile menu button */}
-              <button
-                type="button"
-                onClick={() => setMobileOpen((prev) => !prev)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-700/80 bg-slate-900/70 text-slate-200 shadow-sm shadow-slate-900/50 transition hover:border-cyan-400/70 hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 md:hidden"
-                aria-label="Toggle navigation menu"
-                aria-expanded={mobileOpen}
-              >
-                {mobileOpen ? (
-                  <X className="h-4 w-4" aria-hidden="true" />
-                ) : (
-                  <Menu className="h-4 w-4" aria-hidden="true" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          <AnimatePresence>
-            {mobileOpen && (
-              <motion.nav
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.18 }}
-                className="space-y-1 pb-4 pt-1 md:hidden"
-              >
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => handleNavClick(item.id)}
-                    className="block w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-slate-200 hover:bg-slate-800/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </motion.nav>
-            )}
-          </AnimatePresence>
-        </header>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
          {/* Contact Modal */}
          <AnimatePresence>
@@ -232,7 +186,7 @@ const Layout = () => {
                      />
                    </div>
                    <div>
-                     <label htmlFor="message" className="block text-xs font-medium text-slate-300 mb-1">Project Description / Requirements</label>
+                     <label htmlFor="message" className="block text-xs font-medium text-slate-300 mb-1">Project Specifications</label>
                      <textarea
                        id="message"
                        name="message"
@@ -296,7 +250,7 @@ const Layout = () => {
             </p>
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com/ZAIN1786-TECH"
+                href="https://github.com/ZUH-webdev"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-full px-3 py-1 text-xs font-medium text-slate-300 transition hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
@@ -304,7 +258,7 @@ const Layout = () => {
                 GitHub
               </a>
               <a
-                href="https://www.linkedin.com/in/zain-ul-hassan-dev?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                href="https://www.linkedin.com/in/zain-ul-hassan-dev"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-full px-3 py-1 text-xs font-medium text-slate-300 transition hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"

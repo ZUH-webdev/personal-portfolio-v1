@@ -26,7 +26,7 @@ const Header = ({ handleNavClick, mobileOpen, setMobileOpen, setShowModal, profi
         >
           <div className="relative">
             <img
-              src="/myPP.png"
+              src="/myPP.webp"
               alt="Zain UI Hassan, Full Stack Web Developer"
               loading="lazy"
               className="h-10 w-10 rounded-full border-2 border-indigo-500/50 object-cover transition-transform duration-300 group-hover:scale-110 group-hover:border-indigo-400"

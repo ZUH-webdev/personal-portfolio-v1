@@ -12,7 +12,7 @@ import TestimonialsSection from '../sections/TestimonialsSection'
 import ContactSection from '../sections/ContactSection'
 import Header from './Header'
 import Footer from './Footer'
-import profile from '../../public/profilePic.jpeg'
+import profile from '../../public/myPP.webp'
 
 const navItems = [
   { id: 'hero', label: 'Home' },

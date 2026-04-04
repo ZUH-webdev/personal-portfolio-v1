@@ -202,7 +202,7 @@ const HeroSection = ({ onCtaScroll }) => {
               style={{ y: useTransform(parallaxY, v => v * 0.5) }}
             >
               <img 
-                src="/myPP.png" 
+                src="/myPP.webp" 
                 alt="Zain UI Hassan - Full Stack MERN Developer specializing in SaaS and startup solutions" 
                 loading="lazy"
 

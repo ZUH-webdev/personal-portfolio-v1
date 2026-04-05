@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { Moon, SunMedium, Menu, X } from 'lucide-react'
@@ -6,13 +6,15 @@ import Magnetic from './Magnetic'
 import HeroSection from '../sections/HeroSection'
 import AboutSection from '../sections/AboutSection'
 import ServicesSection from '../sections/ServicesSection'
-import ProjectsSection from '../sections/ProjectsSection'
-import ExperienceSection from '../sections/ExperienceSection'
 import TestimonialsSection from '../sections/TestimonialsSection'
 import ContactSection from '../sections/ContactSection'
 import Header from './Header'
 import Footer from './Footer'
 import profile from '../../public/myPP.webp'
+
+// Lazy load sections that are "far" or heavy
+const ProjectsSection = lazy(() => import('../sections/ProjectsSection'))
+const ExperienceSection = lazy(() => import('../sections/ExperienceSection'))
 
 const navItems = [
   { id: 'hero', label: 'Home' },
@@ -353,8 +355,12 @@ const Layout = () => {
           <HeroSection onCtaScroll={scrollToId} />
           <AboutSection />
           <ServicesSection />
-          <ProjectsSection />
-          <ExperienceSection />
+          
+          <Suspense fallback={null}>
+            <ProjectsSection />
+            <ExperienceSection />
+          </Suspense>
+
           <TestimonialsSection />
           <ContactSection />
         </motion.main>

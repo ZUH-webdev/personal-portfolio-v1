@@ -19,9 +19,9 @@
     font-family: 'Geist', 'Inter', system-ui, sans-serif;
   }
 }
-@utility sr-only {
+@utility sr-only {  
   position: absolute;
-  width: 1px;
+  width: 1px; 
   height: 1px;
   padding: 0;
   margin: -1px;

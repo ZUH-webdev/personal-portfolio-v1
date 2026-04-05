@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, memo } from 'react'
 
 function parallaxAllowed() {
   if (typeof window === 'undefined') return false
@@ -84,11 +84,6 @@ const HeroSection = ({ onCtaScroll }) => {
       id="hero"
       className="relative min-h-[85vh] w-full flex flex-col justify-center overflow-hidden rounded-3xl border border-white/5 bg-[#020617]/50 px-6 py-10 shadow-[0_0_80px_rgba(15,23,42,0.9)] sm:px-12 lg:px-20 lg:py-20 backdrop-blur-md md:backdrop-blur-3xl supports-[backdrop-filter]:bg-[#020617]/40"
     >
-      <div
-        className="pointer-events-none absolute inset-0 z-[99] opacity-[0.03] mix-blend-overlay rounded-3xl layout-grain hidden sm:block"
-        aria-hidden="true"
-      />
-
       <h1 className="sr-only">Zain UI Hassan - Full Stack Web Developer & Software Engineer</h1>
 
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -181,6 +176,7 @@ const HeroSection = ({ onCtaScroll }) => {
               ref={imgWrapRef}
               className="relative w-full h-full overflow-hidden rounded-2xl [transform:translateZ(0)]"
             >
+              {/* Vite: files in `public/` are served from site root — use `/myPP.webp`, never `/public/...` */}
               <img
                 width={900}
                 height={1125}
@@ -271,4 +267,4 @@ const HeroSection = ({ onCtaScroll }) => {
   )
 }
 
-export default HeroSection
+export default memo(HeroSection)

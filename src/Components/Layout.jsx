@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense, useCallback } from 'react'
 import Header from './Header'
 import HeroSection from '../sections/HeroSection'
 import DeferredMount from './DeferredMount'
@@ -22,9 +22,10 @@ const navItems = [
 ]
 
 function scrollToId(id) {
-  const el = document.getElementById(id)
-  if (!el) return
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  requestAnimationFrame(() => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
 }
 
 const Layout = () => {
@@ -32,15 +33,17 @@ const Layout = () => {
   const [showModal, setShowModal] = useState(false)
   const [modalEverOpened, setModalEverOpened] = useState(false)
 
-  const openContactModal = () => {
+  const openContactModal = useCallback(() => {
     setModalEverOpened(true)
     setShowModal(true)
-  }
+  }, [])
 
-  const handleNavClick = (id) => {
+  const handleNavClick = useCallback((id) => {
     setMobileOpen(false)
     scrollToId(id)
-  }
+  }, [])
+
+  const closeModal = useCallback(() => setShowModal(false), [])
 
   return (
     <div className="relative min-h-screen bg-[#020617] text-slate-100 selection:bg-indigo-500/30 transition-colors duration-300">
@@ -50,9 +53,9 @@ const Layout = () => {
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
       >
-        <div className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px]" />
-        <div className="absolute right-0 top-40 h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[100px]" />
-        <div className="absolute -bottom-32 left-1/3 h-[600px] w-[600px] rounded-full bg-purple-500/10 blur-[120px]" />
+        <div className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[72px] md:blur-[120px]" />
+        <div className="absolute right-0 top-40 h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[64px] md:blur-[100px]" />
+        <div className="absolute -bottom-32 left-1/3 h-[600px] w-[600px] rounded-full bg-purple-500/10 blur-[72px] md:blur-[120px]" />
       </div>
 
       <Header
@@ -92,44 +95,44 @@ const Layout = () => {
 
         {modalEverOpened && (
           <Suspense fallback={null}>
-            <ContactModal open={showModal} onClose={() => setShowModal(false)} />
+            <ContactModal open={showModal} onClose={closeModal} />
           </Suspense>
         )}
 
         <main className="shell-main-enter flex flex-1 flex-col gap-24 py-10 sm:py-16">
           <HeroSection onCtaScroll={scrollToId} />
 
-          <DeferredMount minHeight="85vh" rootMargin="0px 0px 280px 0px">
+          <DeferredMount id="about" minHeight="85vh" rootMargin="0px 0px 280px 0px">
             <Suspense fallback={null}>
               <AboutSection />
             </Suspense>
           </DeferredMount>
 
-          <DeferredMount minHeight="70vh" rootMargin="0px 0px 280px 0px">
+          <DeferredMount id="services" minHeight="70vh" rootMargin="0px 0px 280px 0px">
             <Suspense fallback={null}>
               <ServicesSection />
             </Suspense>
           </DeferredMount>
 
-          <DeferredMount minHeight="90vh" rootMargin="0px 0px 280px 0px">
+          <DeferredMount id="projects" minHeight="90vh" rootMargin="0px 0px 280px 0px">
             <Suspense fallback={null}>
               <ProjectsSection />
             </Suspense>
           </DeferredMount>
 
-          <DeferredMount minHeight="85vh" rootMargin="0px 0px 280px 0px">
+          <DeferredMount id="experience" minHeight="85vh" rootMargin="0px 0px 280px 0px">
             <Suspense fallback={null}>
               <ExperienceSection />
             </Suspense>
           </DeferredMount>
 
-          <DeferredMount minHeight="75vh" rootMargin="0px 0px 280px 0px">
+          <DeferredMount id="testimonials" minHeight="75vh" rootMargin="0px 0px 280px 0px">
             <Suspense fallback={null}>
               <TestimonialsSection />
             </Suspense>
           </DeferredMount>
 
-          <DeferredMount minHeight="85vh" rootMargin="0px 0px 280px 0px">
+          <DeferredMount id="contact" minHeight="85vh" rootMargin="0px 0px 280px 0px">
             <Suspense fallback={null}>
               <ContactSection />
             </Suspense>

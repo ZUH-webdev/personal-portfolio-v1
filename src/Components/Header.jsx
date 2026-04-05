@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Menu, X } from 'lucide-react'
 import Magnetic from './Magnetic'
 
@@ -99,4 +100,4 @@ const Header = ({ handleNavClick, mobileOpen, setMobileOpen, onOpenContact }) =>
   )
 }
 
-export default Header
+export default memo(Header)

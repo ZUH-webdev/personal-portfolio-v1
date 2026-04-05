@@ -53,24 +53,11 @@
   <link rel="icon" type="image/webp" href="/myPP.webp" />
   <link rel="apple-touch-icon" href="/myPP.webp" />
 
-  <!-- LCP image (Vite serves `public/` at site root — not /public/...) -->
-  <link rel="preload" as="image" href="/myPP.webp" fetchpriority="high" />
+  <!-- LCP (mobile-first): add public/hero-640.avif + hero-900.avif (+ matching .webp). Preload the smallest AVIF likely to match first viewport. -->
+  <link rel="preload" as="image" href="/myPP.webp" type="image/webp" fetchpriority="high" />
 
-  <!-- Fonts: preload CSS then apply (avoids blocking first paint vs @import in CSS) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;600&display=swap"
-    media="print"
-    onload="this.media='all'"
-  />
-  <noscript>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;600&display=swap"
-    />
-  </noscript>
+  <!-- Primary UI font (subset WOFF2 variable, self-hosted) -->
+  <link rel="preload" fetchpriority="high" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
 
   <!-- Person Schema -->
   <script type="application/ld+json">

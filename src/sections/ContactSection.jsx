@@ -69,7 +69,7 @@ const ContactSection = () => {
 
   return (
     <section
-      id="contact"
+      aria-label="Contact"
       className="relative w-full py-20 lg:py-32 border border-slate-800/30 rounded-3xl overflow-hidden bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950/80"
       onMouseMove={handleMouseMove}
       ref={containerRef}
